@@ -19,6 +19,7 @@ notesRouter.get("/getnotes", fetchUser, async (req, res) => {
 notesRouter.post("/addnote", fetchUser, async (req, res) => {
     try {
         const { title, description } = req.body;
+        console.log(req.user.id);
         const note = await Notes.create({
             user_id: req.user.id,
             title,
