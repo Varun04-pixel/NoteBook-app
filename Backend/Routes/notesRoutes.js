@@ -7,7 +7,7 @@ const notesRouter = express.Router();
 // Get all notes of a user
 notesRouter.get("/getnotes", fetchUser, async (req, res) => {
     try {
-        const notes = await Notes.find({ user_id: req.user.id }).sort({ updatedAt: -1 });
+        const notes = await Notes.find({ user_id: req.user.id });
         res.json(notes);
     } catch (error) {
         console.error(error.message);
@@ -36,11 +36,11 @@ notesRouter.put("/updatenote/:id", fetchUser, async (req, res) => {
     try {
         const { title, description } = req.body;
         const newNote = {};
-        if (title) { 
-            newNote.title = title 
+        if (title) {
+            newNote.title = title
         }
-        if (description) { 
-            newNote.description = description 
+        if (description) {
+            newNote.description = description
         }
         const note = await Notes.findById(req.params.id);
         if (!note) {

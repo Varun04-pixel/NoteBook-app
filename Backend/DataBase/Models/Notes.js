@@ -6,17 +6,17 @@ const notesSchema = new mongoose.Schema({
         ref: "User",
         required: true
     },
-    title: { 
+    title: {
         type: String,
-        required: true 
+        required: true
     },
-    description: { 
-        type: String, 
+    description: {
+        type: String,
         default: "",
         trim: true
     }
 },
-{timestamps: true})
+    { timestamps: true })
 
 const Notes = mongoose.model("Notes", notesSchema);
 export default Notes;

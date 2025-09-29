@@ -28,7 +28,7 @@ userRouter.post(
   async (req, res) => {
     const result = validationResult(req);
     if (!result.isEmpty()) {
-      return res.status(400).json({ errors: result.array() });
+      return res.status(400).json({ success: false, errors: result.array() });
     }
     const { username, email, password } = req.body;
     // Checks if user with this email already exists
@@ -37,7 +37,7 @@ userRouter.post(
       if (data) {
         return res
           .status(400)
-          .json({ errors: "User with this email already exists" });
+          .json({ succes: false, errors: "User with this email already exists" });
       }
       // Hashing the password using bcryptjs
       const salt = await bcrypt.genSalt(10);
@@ -53,7 +53,7 @@ userRouter.post(
       };
       // Generates JWT token
       const authToken = jwt.sign(jwtData, process.env.JWT_SECRET);
-      res.json({ authToken });
+      res.json({ succes: true, authToken });
     } catch (error) {
       console.error(error.message);
       res.status(500).send("Internal Server Error");
@@ -71,19 +71,19 @@ userRouter.post(
   async (req, res) => {
     const result = validationResult(req);
     if (!result.isEmpty()) {
-      return res.status(400).json({ errors: result.array() });
+      return res.status(400).json({ success: false, errors: result.array() });
     }
     const { email, password } = req.body;
     try {
       // Check if user with this email exists
       const userData = await User.findOne({ email });
       if (!userData) {
-        return res.status(400).json({ errors: "Invalid Credentials" });
+        return res.status(400).json({ success: false, errors: "Invalid Credentials" });
       }
       // Check if password matches the actual password
       const passwordCompare = await bcrypt.compare(password, userData.password);
       if (!passwordCompare) {
-        return res.status(400).json({ errors: "Invalid Credentials" });
+        return res.status(400).json({ success: false, errors: "Invalid Credentials" });
       }
       // Payload for JWT
       const jwtData = {
@@ -93,7 +93,7 @@ userRouter.post(
       };
       // Generates JWT token
       const authToken = jwt.sign(jwtData, process.env.JWT_SECRET);
-      res.json({ authToken });
+      res.json({ success: true, authToken });
     } catch (error) {
       console.error(error.message);
       res.status(500).send("Internal Server Error");

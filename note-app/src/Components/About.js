@@ -1,6 +1,8 @@
 function About() {
     return (
-        <div>About</div>
+        <div className="app-theme">
+            <h1>About</h1>
+        </div>
     )
 }
 

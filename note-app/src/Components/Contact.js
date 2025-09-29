@@ -1,6 +1,8 @@
 function Contact() {
     return (
-        <div>Contact</div>
+        <div className="app-theme">
+            <h1>Contact</h1>
+        </div>
     )
 }
 
