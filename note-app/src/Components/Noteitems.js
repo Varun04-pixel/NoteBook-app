@@ -27,7 +27,7 @@ function Noteitems(props) {
     });
   };
   const handleModal = () => {
-    updateNote(note, updatedTime);
+    updateNote(note);
   };
   return (
     <>
