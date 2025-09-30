@@ -46,7 +46,9 @@ function Notes(props) {
 
         <div className="container row row-cols-lg-3">
           {notes.length === 0 ? (
-            <h3>Add a note to see it here</h3>
+            <div className="container ms-4">
+              <h4 className="my-4 rounded-2 p-2 text-center glass-effect"><small>Add a note to see it here</small></h4>
+            </div>
           ) : (
             notes.map((note) => (
               <Noteitems
