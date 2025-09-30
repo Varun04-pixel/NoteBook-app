@@ -108,7 +108,7 @@ function Login(props) {
 
               <div className="mb-3 text-center">
                 <span>Don&apos;t have an account? </span>
-                <Link style={{ color: "#185205ff" }} to="/signup">
+                <Link style={{ color: "#4EB931" }} to="/signup">
                   Sign up
                 </Link>
               </div>
