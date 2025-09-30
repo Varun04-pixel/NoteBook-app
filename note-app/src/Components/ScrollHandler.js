@@ -5,7 +5,7 @@ function ScrollHandler() {
     const location = useLocation();
 
     useEffect(() => {
-        if (location.pathname === "/home") {
+        if (location.pathname === "/home" || location.pathname === "/signup") {
             document.body.style.overflow = "auto";
         } else {
             document.body.style.overflow = "hidden";
