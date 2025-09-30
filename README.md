@@ -46,19 +46,19 @@ cd NoteBook-app
 cd Backend
 npm install
 
-# Create a .env file inside Backend/ with:
+# Create a .env file inside Backend/  and add this:
 MONGO_URI=your_mongodb_connection_string
 PORT=5000
 JWT_SECRET=some_secret_code (combination of numbers, symbols, alphabets)
 
 # Start backend
-npm start   # or nodemon server.js
+npm start   # or node server.js
 
 # 3️⃣ Frontend setup (in a new terminal, while backend is running)
 cd note-app
 npm install
 
-# Create a .env file inside note-app/ with:
+# Create a .env file inside note-app/ and add this:
 REACT_APP_HOST=http://localhost:5000
 
 # In package.json, replace:
