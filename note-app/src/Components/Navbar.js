@@ -1,12 +1,15 @@
 import { Link, useNavigate, NavLink } from "react-router-dom";
+import { useContext, useState } from "react";
+import noteContext from "../Context/noteContext";
 import "../App.css";
 
 function Navbar(props) {
   const navigate = useNavigate();
+  const [input, setInput] = useState("");
+  const { searchNote } = useContext(noteContext);
   let { loggedIn, setLoggedIn, setAlert } = props;
 
   const handleLogout = (e) => {
-    // Prevent any default action (like form submission or link navigation)
     if (e) e.preventDefault();
     e.stopPropagation();
 
@@ -24,6 +27,25 @@ function Navbar(props) {
     // Navigate to login page
     navigate("/");
   };
+
+  const handleOnChange = (e) => {
+    setInput(e.target.value);
+  }
+
+  const handleOnSearch = async () => {
+    if (!input.trim()) return;
+
+    const isFound = await searchNote(input.trim());
+
+    if (!isFound) {
+      // show alert
+      setAlert({
+        isAlert: true,
+        msg: "No match found !!",
+        color: "danger",
+      });
+    }
+  }
   return (
     <>
       <nav className="navbar navbar-expand-lg glass-effect sticky-top mx-5 border-none rounded-3">
@@ -79,6 +101,15 @@ function Navbar(props) {
               </li>
             </ul>
             <div className="d-flex mt-2" role="search">
+              <form className="d-flex me-4" role="search">
+                <input className="form-control me-2 glass-effect placeholder-wave" value={input} onChange={handleOnChange} onKeyDown={(e) => {
+                  if (e.key === "Enter") {
+                    e.preventDefault();
+                    handleOnSearch();
+                  }
+                }} type="search" placeholder="Search notes ..." aria-label="Search" />
+                <button type="button" onClick={handleOnSearch} className="btn btn-outline-success">Search</button>
+              </form>
               {!loggedIn ? (
                 <>
                   <Link className="btn btn-success mx-1" to="/login" role="button">
@@ -90,9 +121,9 @@ function Navbar(props) {
                 </>
               ) : (
                 <button
-                  type="button" // ensures no form submission
+                  type="button"
                   className="btn btn-success mx-1"
-                  onClick={handleLogout} // call the handler
+                  onClick={handleLogout}
                 >
                   Logout
                 </button>

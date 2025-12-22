@@ -15,6 +15,24 @@ notesRouter.get("/getnotes", fetchUser, async (req, res) => {
     }
 });
 
+// Search searched note of a user
+notesRouter.get("/searchnotes", fetchUser, async (req, res) => {
+    try {
+        const query = req.query.q;
+        const note = await Notes.find({
+            user_id: req.user.id,
+            $or: [
+                { title: { $regex: query, $options: "i" } },
+                { description: { $regex: query, $options: "i" } }
+            ]
+        });
+        res.json(note);
+    } catch (error) {
+        console.error(error.message);
+        res.status(500).send("Internal Server Error");
+    }
+})
+
 // Add a new note
 notesRouter.post("/addnote", fetchUser, async (req, res) => {
     try {

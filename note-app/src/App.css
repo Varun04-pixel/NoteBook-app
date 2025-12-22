@@ -1,59 +1,99 @@
 i {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .nav-link.active {
-    color: #FFD700 !important;
-    /* color: #00FFFF !important; */
-    text-decoration: underline;
-    text-decoration-color: #FFD700;
-    text-decoration-thickness: 3px;
-    text-underline-offset: 6px;
+  color: #FFD700 !important;
+  /* color: #00FFFF !important; */
+  text-decoration: underline;
+  text-decoration-color: #FFD700;
+  text-decoration-thickness: 3px;
+  text-underline-offset: 6px;
 }
 
 html,
 body,
 #root {
-    height: 100%;
-    margin: 0;
-    padding: 0;
+  height: 100%;
+  margin: 0;
+  padding: 0;
 }
 
 body,
 html,
 #root,
 .app-theme {
-    margin: 0;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-        "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-        sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    color: #ffffff;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: #ffffff;
 }
 
 .glass-effect {
-    color: #ffffff !important;
-    background: rgba(255, 255, 255, 0.1) !important;
-    backdrop-filter: blur(10px) !important;
-    -webkit-backdrop-filter: blur(10px) !important;
-    border: 1px solid rgba(255, 255, 255, 0.3) !important;
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1) !important;
+  color: #ffffff !important;
+  background: rgba(255, 255, 255, 0.1) !important;
+  backdrop-filter: blur(10px) !important;
+  -webkit-backdrop-filter: blur(10px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.3) !important;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1) !important;
 }
 
 .glass-effect:focus {
-    color: #ffffff;
-    background: rgba(255, 255, 255, 0.2) !important;
-    border: 1px solid rgba(255, 255, 255, 0.5) !important;
-    box-shadow: 0 0 8px rgba(255, 255, 255, 0.3) !important;
-    outline: none !important;
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.2) !important;
+  border: 1px solid rgba(255, 255, 255, 0.5) !important;
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.3) !important;
+  outline: none !important;
 }
 
 .modal {
-    z-index: 1060 !important;
+  z-index: 1060 !important;
   position: fixed !important;
 }
 
 .modal-backdrop {
   z-index: 1050 !important;
+}
+
+.highlight-flash {
+  animation: wobble 1.2s ease 1;
+}
+
+@keyframes wobble {
+
+  0%,
+  100% {
+    -webkit-transform: translateX(0%);
+    transform: translateX(0%);
+    -webkit-transform-origin: 50% 50%;
+    transform-origin: 50% 50%;
+  }
+
+  15% {
+    -webkit-transform: translateX(-32px) rotate(-10deg);
+    transform: translateX(-32px) rotate(-10deg);
+  }
+
+  30% {
+    -webkit-transform: translateX(calc(32px / 2)) rotate(10deg);
+    transform: translateX(calc(32px / 2)) rotate(10deg);
+  }
+
+  45% {
+    -webkit-transform: translateX(calc(-32px / 2)) rotate(calc(-10deg / 1.8));
+    transform: translateX(calc(-32px / 2)) rotate(calc(-10deg / 1.8));
+  }
+
+  60% {
+    -webkit-transform: translateX(calc(32px / 3.3)) rotate(calc(10deg / 3));
+    transform: translateX(calc(32px / 3.3)) rotate(calc(10deg / 3));
+  }
+
+  75% {
+    -webkit-transform: translateX(calc(-32px / 5.5)) rotate(calc(-10deg / 5));
+    transform: translateX(calc(-32px / 5.5)) rotate(calc(-10deg / 5));
+  }
 }

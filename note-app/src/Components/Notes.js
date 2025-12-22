@@ -1,4 +1,4 @@
-import { useContext, useState, useEffect } from "react";
+import { useContext, useState, useEffect, useRef } from "react";
 import noteContext from "../Context/noteContext";
 import Noteitems from "./Noteitems";
 import AOS from "aos";
@@ -6,9 +6,24 @@ import "aos/dist/aos.css";
 import "../App.css";
 
 function Notes(props) {
-  const { notes, getNotes, editNote } = useContext(noteContext);
+  const { notes, getNotes, editNote, searchQuery } = useContext(noteContext);
   const [showModal, setShowModal] = useState(false);
   const [currentNote, setCurrentNote] = useState({ id: "", etitle: "", edescription: "" });
+  const [highlightId, setHighlightId] = useState(null);
+
+  const refList = useRef({});
+
+  useEffect(() => {
+    if (searchQuery && refList.current[searchQuery]) {
+      refList.current[searchQuery].scrollIntoView({
+        behavior: 'smooth',
+        block: 'center'
+      });
+
+      setHighlightId(searchQuery);
+    }
+  }, [searchQuery]);
+
 
   if (!localStorage.getItem("token")) {
     window.location = "/login";
@@ -53,6 +68,8 @@ function Notes(props) {
             notes.map((note) => (
               <Noteitems
                 key={note._id}
+                ref={(el) => refList.current[note._id] = el}
+                highlightTrigger={highlightId}
                 note={note}
                 updateNote={handleUpdateClick} // pass state-controlled function
                 setAlert={props.setAlert}

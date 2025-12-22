@@ -5,6 +5,8 @@ const NoteState = (props) => {
     let initialNotes = [];
 
     const [notes, setNotes] = useState(initialNotes);
+    const [searchQuery, setSearchQuery] = useState(null);
+
     // Fetch all Notes
     const getNotes = async () => {
         let response = await fetch(`${process.env.REACT_APP_HOST}/notes/getnotes`, {
@@ -16,6 +18,29 @@ const NoteState = (props) => {
         })
         let data = await response.json();
         setNotes(data);
+    }
+
+    // Search Notes
+    const searchNote = async (query) => {
+        let response = await fetch(`${process.env.REACT_APP_HOST}/notes/searchnotes?q=${query}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'auth-token': localStorage.getItem('token')
+            }
+        })
+        let data = await response.json();
+
+        if (data.length > 0) {
+            setSearchQuery(null);
+            setTimeout(() => {
+                setSearchQuery(data[0]._id);
+            }, 0);
+        } else {
+            setSearchQuery(null);
+        }
+
+        return data.length > 0;
     }
 
     // Add note
@@ -70,7 +95,7 @@ const NoteState = (props) => {
     }
 
     return (
-        <noteContext.Provider value={{ notes, setNotes, getNotes, addNote, deleteNote, editNote }}>
+        <noteContext.Provider value={{ notes, setNotes, getNotes, addNote, deleteNote, editNote, searchQuery, searchNote }}>
             {props.children}
         </noteContext.Provider>
     );

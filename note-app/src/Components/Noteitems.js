@@ -1,12 +1,31 @@
 import "../App.css";
-import { useContext, useEffect } from "react";
+import { useContext, useState, useEffect, forwardRef, useRef } from "react";
 import noteContext from "../Context/noteContext";
+// eslint-disable-next-line
 import AOS from "aos";
 import "aos/dist/aos.css";
 
-function Noteitems(props) {
+const Noteitems = forwardRef((props, ref) => {
   const { note, updateNote, setAlert } = props;
   const { deleteNote } = useContext(noteContext);
+  const [highlight, setHighlight] = useState(false);
+  const aosApplied = useRef(false);
+
+  useEffect(() => {
+    if (props.highlightTrigger === note._id) {
+      setHighlight(true);
+
+      // Remove highlight after animation
+      setTimeout(() => setHighlight(false), 1200);
+    }
+  }, [props.highlightTrigger, note._id]);
+
+  useEffect(() => {
+    if (!aosApplied.current) {
+      aosApplied.current = true;
+    }
+  }, []);
+
   const updatedTime = new Date(note.updatedAt).toLocaleString("en-IN", {
     weekday: "long",
     year: "numeric",
@@ -15,9 +34,7 @@ function Noteitems(props) {
     hour: "2-digit",
     minute: "2-digit",
   });
-  useEffect(() => {
-    AOS.init({ duration: 800, offset: 100, once: true });
-  }, []);
+
   const handleDelete = () => {
     deleteNote(note._id);
     setAlert({
@@ -26,19 +43,20 @@ function Noteitems(props) {
       color: "danger",
     });
   };
+
   const handleModal = () => {
     updateNote(note);
   };
+
   return (
     <>
-      <div key={note._id} className="col mt-2" data-aos="fade-up">
+      <div ref={ref} key={note._id} className={`col mt-2 ${highlight ? "highlight-flash" : ""}`} {...(!aosApplied.current && { "data-aos": "fade-up" })}
+      >
         <div className="card my-3 mx-3 w-100 glass-effect text-light position-relative">
           <div className="card-body">
-            {/* <span className="position-absolute top-0 end-0 p-2 badge rounded-2 bg-dark opacity-75 badge-slit">
-                        <i class="fa-solid fa-hashtag"></i> General
-                    </span> */}
 
             <h5 className="card-title mb-3">{note.title}</h5>
+
             <p className="d-inline-flex gap-1">
               <button
                 className="btn glass-effect"
@@ -71,11 +89,12 @@ function Noteitems(props) {
               ></i>
               <i className="fa-solid fa-trash" onClick={handleDelete}></i>
             </div>
+
           </div>
         </div>
       </div>
     </>
   );
-}
+});
 
 export default Noteitems;

@@ -10,9 +10,10 @@ const PORT = process.env.PORT || 5000;
 app.use(express.json());
 app.use(cors())
 app.use(cors({
-  origin: '*', // or your frontend URL
-  methods: ['GET','POST','PUT','DELETE'],
-  allowedHeaders: ['Content-Type','auth-token']
+  origin: "https://notex-05nv.onrender.com",
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  allowedHeaders: ["Content-Type", "auth-token"],
+  credentials: true
 }));
 app.use('/auth', userRouter);
 app.use('/notes', notesRouter);
