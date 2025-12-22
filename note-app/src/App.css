@@ -97,3 +97,32 @@ html,
     transform: translateX(calc(-32px / 5.5)) rotate(calc(-10deg / 5));
   }
 }
+
+/* Backdrop overlay */
+.backdrop-loader {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+
+  /* Visible background */
+  background: rgba(255, 255, 255, 0.1);
+
+  /* Blur effect */
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.loader-box {
+  background: rgba(61, 61, 61, 0.6);
+  padding: 24px 40px;
+  border-radius: 12px;
+}
+
+.backdrop-loader.exit {
+  opacity: 0;
+  pointer-events: none;
+}

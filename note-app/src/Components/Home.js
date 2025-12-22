@@ -40,26 +40,25 @@ function Home(props) {
     userDetails()
     // eslint-disable-next-line
   }, [])
-  if (loading) {
-    return (
-      <div className="min-vh-100 d-flex justify-content-center align-items-center">
-        <div className="text-center">
+
+  return (
+    <>
+      {loading && (
+      <div className="backdrop-loader">
+        <div className="loader-box text-center">
           <div className="spinner-border text-success mb-3" role="status">
             <span className="visually-hidden">Loading...</span>
           </div>
-          <p className="text-muted">Waking up the server...</p>
+          <p className="text-light mb-0">Waking up the server...</p>
         </div>
       </div>
-    );
-  }
-  return (
-    <>
+    )}
 
       <div className="container min-vh-100 d-flex align-items-center justify-content-center">
         <div className="text-center my-5">
           <h1 className="bg-transparent display-4 mb-5 fw-bold">
             <ReactTyped
-              strings={[`Welcome ${username}`, "Your note-taking app is ready", "Create", "Organise", "Access"]}
+              strings={[`Welcome ${username || "User"}`, "Your note-taking app is ready", "Create", "Organise", "Access"]}
               typeSpeed={60}
               backSpeed={30}
               showCursor={true}
@@ -69,7 +68,7 @@ function Home(props) {
           </h1>
           {/* <h1 className="display-4 mb-5 fw-bold typing">Welcome {username}</h1> */}
           <p className="lead mb-4 mt-3">
-            {`Hi, ${username}`} Your personal note-taking application is <strong>ready to use</strong>. Stay organized, capture
+            {username && `Hi, ${username}`} Your personal note-taking application is <strong>ready to use</strong>. Stay organized, capture
             ideas, and manage your tasks effortlessly.
           </p>
 
