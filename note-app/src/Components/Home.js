@@ -7,27 +7,54 @@ import { ReactTyped } from "react-typed";
 
 function Home(props) {
   const [username, setUsername] = useState("")
+  const [loading, setLoading] = useState(true);
   let { setAlert } = props
   const target = useRef(null)
   const handleOnClick = () => {
     target.current.scrollIntoView({ behaviout: "smooth" })
   }
   const userDetails = async () => {
-    let response = await fetch(`${process.env.REACT_APP_HOST}/auth/getuser`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'auth-token': localStorage.getItem('token')
-      }
-    })
-    let data = await response.json()
-    setUsername(data.username)
-  }
+    try {
+      let response = await fetch(`${process.env.REACT_APP_HOST}/auth/getuser`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'auth-token': localStorage.getItem('token')
+        }
+      });
+
+      let data = await response.json();
+      setUsername(data.username);
+    } catch (error) {
+      console.error(error);
+      setAlert({
+        isAlert: true,
+        msg: "Server is waking up, please wait...",
+        color: "info"
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
   useEffect(() => {
     userDetails()
+    // eslint-disable-next-line
   }, [])
+  if (loading) {
+    return (
+      <div className="min-vh-100 d-flex justify-content-center align-items-center">
+        <div className="text-center">
+          <div className="spinner-border text-success mb-3" role="status">
+            <span className="visually-hidden">Loading...</span>
+          </div>
+          <p className="text-muted">Waking up the server...</p>
+        </div>
+      </div>
+    );
+  }
   return (
     <>
+
       <div className="container min-vh-100 d-flex align-items-center justify-content-center">
         <div className="text-center my-5">
           <h1 className="bg-transparent display-4 mb-5 fw-bold">
