@@ -49,7 +49,7 @@ function Home(props) {
           <div className="spinner-border text-success mb-3" role="status">
             <span className="visually-hidden">Loading...</span>
           </div>
-          <p className="text-light mb-0">Waking up the server...</p>
+          <p className="text-light mb-0">Waking up the server...<br/>Please wait !!</p>
         </div>
       </div>
     )}
