@@ -6,6 +6,28 @@ const NoteState = (props) => {
 
     const [notes, setNotes] = useState(initialNotes);
     const [searchQuery, setSearchQuery] = useState(null);
+    const [user, setUser] = useState(null);
+    const [userLoaded, setUserLoaded] = useState(false);
+
+    const getUser = async () => {
+        if (userLoaded) return; // already fetched check
+
+        try {
+            const res = await fetch(`${process.env.REACT_APP_HOST}/auth/getuser`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "auth-token": localStorage.getItem("token")
+                }
+            });
+
+            const data = await res.json();
+            setUser(data);
+            setUserLoaded(true);
+        } catch (err) {
+            console.error(err);
+        }
+    };
 
     // Fetch all Notes
     const getNotes = async () => {
@@ -95,7 +117,7 @@ const NoteState = (props) => {
     }
 
     return (
-        <noteContext.Provider value={{ notes, setNotes, getNotes, addNote, deleteNote, editNote, searchQuery, searchNote }}>
+        <noteContext.Provider value={{ notes, setNotes, getNotes, addNote, deleteNote, editNote, searchQuery, searchNote, user, userLoaded, getUser }}>
             {props.children}
         </noteContext.Provider>
     );

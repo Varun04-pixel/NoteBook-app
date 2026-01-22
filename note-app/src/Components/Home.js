@@ -6,43 +6,22 @@ import '../App.css'
 import { ReactTyped } from "react-typed";
 
 function Home(props) {
-  const [username, setUsername] = useState("")
-  const [userLoaded, setUserLoaded] = useState(false)
+  const { user, userLoaded, getUser } = useContext(noteContext);
   const [loading, setLoading] = useState(true);
   let { setAlert } = props
   const target = useRef(null)
   const handleOnClick = () => {
     target.current.scrollIntoView({ behaviout: "smooth" })
   }
-  const userDetails = async () => {
-    if(userLoaded) return;
-    try {
-      let response = await fetch(`${process.env.REACT_APP_HOST}/auth/getuser`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'auth-token': localStorage.getItem('token')
-        }
-      });
 
-      let data = await response.json();
-      setUsername(data.username);
-      setUserLoaded(true);
-    } catch (error) {
-      console.error(error);
-      setAlert({
-        isAlert: true,
-        msg: "Server is waking up, please wait...",
-        color: "info"
-      });
-    } finally {
-      setLoading(false);
-    }
-  };
   useEffect(() => {
-    userDetails()
+    const load = async () => {
+      await getUser();
+      setLoading(false);
+    };
+    load();
     // eslint-disable-next-line
-  }, [])
+  }, []);
 
   return (
     <>
