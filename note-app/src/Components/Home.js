@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import Addnote from "./Addnote";
 import Notes from "./Notes";
-import { useRef } from "react";
+import { useContext, useRef } from "react";
 import '../App.css'
 import { ReactTyped } from "react-typed";
 import noteContext from "../Context/noteContext";
