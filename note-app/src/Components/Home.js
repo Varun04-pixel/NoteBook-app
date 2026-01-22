@@ -7,35 +7,42 @@ import { ReactTyped } from "react-typed";
 import noteContext from "../Context/noteContext";
 
 function Home(props) {
-  const { getUser } = useContext(noteContext);
+  const { user, userLoaded, getUser } = useContext(noteContext);
   const [loading, setLoading] = useState(true);
   let { setAlert } = props
   const target = useRef(null)
+  const username = user?.username;
   const handleOnClick = () => {
     target.current.scrollIntoView({ behaviout: "smooth" })
   }
 
   useEffect(() => {
+    if (userLoaded) {
+      setLoading(false);
+      return;
+    }
+
     const load = async () => {
       await getUser();
       setLoading(false);
     };
+
     load();
     // eslint-disable-next-line
-  }, []);
+  }, [userLoaded]);
 
   return (
     <>
       {loading && (
-      <div className="backdrop-loader">
-        <div className="loader-box text-center">
-          <div className="spinner-border text-success mb-3" role="status">
-            <span className="visually-hidden">Loading...</span>
+        <div className="backdrop-loader">
+          <div className="loader-box text-center">
+            <div className="spinner-border text-success mb-3" role="status">
+              <span className="visually-hidden">Loading...</span>
+            </div>
+            <p className="text-light mb-0">Waking up the server...<br />Please wait !!</p>
           </div>
-          <p className="text-light mb-0">Waking up the server...<br/>Please wait !!</p>
         </div>
-      </div>
-    )}
+      )}
 
       <div className="container min-vh-100 d-flex align-items-center justify-content-center">
         <div className="text-center my-5">
