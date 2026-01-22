@@ -4,9 +4,10 @@ import Notes from "./Notes";
 import { useRef } from "react";
 import '../App.css'
 import { ReactTyped } from "react-typed";
+import noteContext from "../Context/noteContext";
 
 function Home(props) {
-  const { user, userLoaded, getUser } = useContext(noteContext);
+  const { getUser } = useContext(noteContext);
   const [loading, setLoading] = useState(true);
   let { setAlert } = props
   const target = useRef(null)
