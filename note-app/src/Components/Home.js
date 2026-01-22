@@ -7,6 +7,7 @@ import { ReactTyped } from "react-typed";
 
 function Home(props) {
   const [username, setUsername] = useState("")
+  const [userLoaded, setUserLoaded] = useState(false)
   const [loading, setLoading] = useState(true);
   let { setAlert } = props
   const target = useRef(null)
@@ -14,6 +15,7 @@ function Home(props) {
     target.current.scrollIntoView({ behaviout: "smooth" })
   }
   const userDetails = async () => {
+    if(userLoaded) return;
     try {
       let response = await fetch(`${process.env.REACT_APP_HOST}/auth/getuser`, {
         method: 'POST',
@@ -25,6 +27,7 @@ function Home(props) {
 
       let data = await response.json();
       setUsername(data.username);
+      setUserLoaded(true);
     } catch (error) {
       console.error(error);
       setAlert({
