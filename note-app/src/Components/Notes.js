@@ -6,7 +6,7 @@ import "aos/dist/aos.css";
 import "../App.css";
 
 function Notes(props) {
-  const { notes, getNotes, editNote, searchQuery } = useContext(noteContext);
+  const { notes, getNotes, editNote, searchQuery, setSearchQuery } = useContext(noteContext);
   const [showModal, setShowModal] = useState(false);
   const [currentNote, setCurrentNote] = useState({ id: "", etitle: "", edescription: "" });
   const [highlightId, setHighlightId] = useState(null);
@@ -21,6 +21,10 @@ function Notes(props) {
       });
 
       setHighlightId(searchQuery);
+
+      setTimeout(() => {
+        setSearchQuery(null);
+      }, 300);
     }
   }, [searchQuery]);
 

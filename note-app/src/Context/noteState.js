@@ -5,7 +5,7 @@ const NoteState = (props) => {
     let initialNotes = [];
 
     const [notes, setNotes] = useState(initialNotes);
-    const [searchQuery, setSearchQuery] = useState(null);
+    const [searchQuery, setSearchQuery] = useState("");
     const [user, setUser] = useState(null);
     const [userLoaded, setUserLoaded] = useState(false);
 
@@ -54,7 +54,6 @@ const NoteState = (props) => {
         let data = await response.json();
 
         if (data.length > 0) {
-            setSearchQuery(null);
             setTimeout(() => {
                 setSearchQuery(data[0]._id);
             }, 0);
@@ -117,7 +116,7 @@ const NoteState = (props) => {
     }
 
     return (
-        <noteContext.Provider value={{ notes, setNotes, getNotes, addNote, deleteNote, editNote, searchQuery, searchNote, user, userLoaded, getUser }}>
+        <noteContext.Provider value={{ notes, setNotes, getNotes, addNote, deleteNote, editNote, searchQuery, setSearchQuery, searchNote, user, userLoaded, getUser }}>
             {props.children}
         </noteContext.Provider>
     );
