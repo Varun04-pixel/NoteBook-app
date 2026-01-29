@@ -7,7 +7,7 @@ Users can sign up, log in, add, view, and manage their notes.
 
 ## Demo
 
-🔗 [Visit live Site](https://notex-05nv.onrender.com/home)
+🔗 [Visit live Site](https://notex-05nv.onrender.com)
 
 ![App Screenshot](./Assets/Screenshot%202025-10-01%20004252.png)
 
