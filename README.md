@@ -3,15 +3,11 @@
 A full-stack note-taking web application built with React (frontend) and Node.js / Express / MongoDB (backend).  
 Users can sign up, log in, add, view, and manage their notes.
 
----
-
 ## Demo
 
 🔗 [Visit live Site](https://notex-05nv.onrender.com)
 
 ![App Screenshot](./Assets/Screenshot%202025-10-01%20004252.png)
-
----
 
 ## Tech Stack
 
@@ -24,8 +20,6 @@ Users can sign up, log in, add, view, and manage their notes.
 | Deployment     | Render.com (backend & frontend) |
 | Others         | CORS, dotenv, etc.              |
 
----
-
 ## Features
 
 - User registration & authentication
@@ -33,8 +27,6 @@ Users can sign up, log in, add, view, and manage their notes.
 - Retrieve notes for logged-in user
 - Responsive UI
 - Deployed online via Render
-
----
 
 ## Installation & Setup (Local)
 
